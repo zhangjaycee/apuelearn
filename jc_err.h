@@ -3,13 +3,30 @@
 ** time: 2015 02 03   byJaycee
 ** Email: zhjcyx@gmail.com
 **********************************/
-
+#define MAXLINE 4096
 #include<stdio.h>
 #include<stdarg.h>//可变参数的头文件
-void error(const char *fmt,...)
+#include<errno.h>
+
+/*doit好像就是do it的意思。。。*/
+static void err_doit(int errnoflag, int error, const char *fmt, va_list ptr)
 {
-	va_list ptr;//va_list 实际是
+	char buf[MAXLINE];
+	vsnprintf(buf,MAXLINE-1,fmt,ptr);//variable string print format(max n)
+	if(errnoflag){
+		snprintf(buf+strlen(buf),MAXLINE-strlen(buf)-1,":%s",strerrno(error));
+	}
+	strcat(buf,"\n");
+	fflush(stdout);
+	fputs(buf,stderr);
+	fflush(NULL);
+}
+/*ret是return的意思*/
+void err_ret(const char *fmt,...)
+{
+	
+	va_list ptr;//va_list 实际是char * 类型
 	va_start(ptr,fmt);//第二个参数是"..."前面的最后一个参数
-	
-	
+	err_doit(1,errno,fmt,ptr);
+	va_end(ptr);
 }
