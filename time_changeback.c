@@ -10,6 +10,7 @@ Email: zhjcyx@gmail.com
 //osx编译时不知为何，gcc需要用-std=c89
 #include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
 #include<fcntl.h>
 #include<sys/stat.h>
 #include"jc_err.h"
@@ -32,7 +33,6 @@ int main(int argc, char *argv[])
 			err_ret("%s: open error",argv[i]);
 			continue;
 		}
-	//	printf("atime=%d\n")
 		times[0].tv_sec=statbuf.st_atime;
 		times[1].tv_sec=statbuf.st_mtime;
 //原型int futimens(int fd,const struct timespec times[2])
