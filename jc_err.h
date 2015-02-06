@@ -7,7 +7,6 @@
 #include<stdio.h>
 #include<stdarg.h>//可变参数的头文件
 #include<string.h>
-#include<mach/error.h>
 #include<errno.h>
 
 /*doit好像就是do it的意思。。。*/
@@ -16,7 +15,7 @@ static void err_doit(int errnoflag, int error, const char *fmt, va_list ptr)
 	char buf[MAXLINE];
 	vsnprintf(buf,MAXLINE-1,fmt,ptr);//variable string print format(max n)
 	if(errnoflag){
-		snprintf(buf+strlen(buf),MAXLINE-strlen(buf)-1,":%s",strerrno(error));
+		snprintf(buf+strlen(buf),MAXLINE-strlen(buf)-1,":%s",strerror(error));
 	}
 	strcat(buf,"\n");
 	fflush(stdout);
