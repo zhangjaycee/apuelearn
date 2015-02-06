@@ -6,6 +6,8 @@
 #define MAXLINE 4096
 #include<stdio.h>
 #include<stdarg.h>//可变参数的头文件
+#include<string.h>
+#include<mach/error.h>
 #include<errno.h>
 
 /*doit好像就是do it的意思。。。*/

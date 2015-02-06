@@ -16,22 +16,22 @@ int main(int argc, char *argv[])
 {
 	int i,fd;
 	struct stat statbuf;
-	struct timespec times[2];
+	time_t times[2];
 	if(argc<2){
 		err_ret("Usage: %s filename",argv[0]);
-		eixt(1);
+		exit(1);
 	}
 	for(i=1;i<argc;i++){
 		if(stat(argv[i],&statbuf)<0){
 			err_ret("%s: stat error",argv[i]);
 			continue;
 		}
-		if(fd=open(argv[i],O_RDWR|O_TRUNC)<0){
+		if((fd=open(argv[i],O_RDWR|O_TRUNC))<0){
 			err_ret("%s: open error",argv[i]);
 			continue;
 		}
 		times[0]=statbuf.st_atime;
-		times[1]=statbuf.st_mtime;
+		times[1]=statbuf.st_atime;
 //Ô­ÐÍint futimens(int fd,const struct timespec times[2])
 		if(futimens(fd,times)<0){
 			err_ret("%s: futimens error",argv[i]);
