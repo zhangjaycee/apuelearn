@@ -24,10 +24,17 @@ static void err_doit(int errnoflag, int error, const char *fmt, va_list ptr)
 }
 /*ret是return的意思*/
 void err_ret(const char *fmt,...)
-{
-	
+{	
 	va_list ptr;//va_list 实际是char * 类型
 	va_start(ptr,fmt);//第二个参数是"..."前面的最后一个参数
 	err_doit(1,errno,fmt,ptr);
 	va_end(ptr);
+}
+void err_sys(const char *fmt,...)
+{	
+	va_list ptr;//va_list 实际是char * 类型
+	va_start(ptr,fmt);//第二个参数是"..."前面的最后一个参数
+	err_doit(1,errno,fmt,ptr);
+	va_end(ptr);
+	exit(1);
 }
