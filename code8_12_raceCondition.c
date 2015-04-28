@@ -3,6 +3,7 @@
 ** time: 20150428    byJaycee
 ** Email: zhjcyx@gmail.com
 **********************************/
+//出现竞争条件 因为fork()后子进程、父进程都调用了函数charatatime,可能出现文本的混合
 #include<stdio.h>
 #include"jc_err.h"
 #include<unistd.h>
